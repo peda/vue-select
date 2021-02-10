@@ -1054,6 +1054,8 @@
       optionExists(option) {
         let exists = false
 
+        if (this.taggable && typeof option === 'string' && this.mutableOptions.map(opt => typeof opt).includes("object")) return false;
+
         this.mutableOptions.forEach(opt => {
           if (typeof opt === 'object' && opt[this.label] === option) {
             exists = true
