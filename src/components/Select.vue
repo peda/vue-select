@@ -409,6 +409,11 @@
         default: null
       },
 
+      allowDuplicateTags: {
+        type: Boolean,
+        default: false,
+      },
+
       /**
        * An array of strings or objects to be used as dropdown choices.
        * If you are using an array of objects, vue-select will look for
@@ -697,30 +702,6 @@
           }
           this.$emit('option:created', newOption)
           return newOption
-        }
-      },
-
-      /**
-       * Determine if an option exists
-       * within this.mutableOptions array.
-       *
-       * @param  {Object || String} option
-       * @return {boolean}
-       */
-      optionExists: {
-        type: Function,
-        default(option) {
-          let exists = false
-
-          this.mutableOptions.forEach(opt => {
-            if (typeof opt === 'object' && opt[this.label] === option) {
-              exists = true
-            } else if (opt === option) {
-              exists = true
-            }
-          })
-
-          return exists
         }
       },
 
@@ -1048,6 +1029,7 @@
        */
       onSearchFocus() {
         this.open = true
+        this.typeAheadPointer = 0;
         this.$emit('search:focus')
       },
 
@@ -1060,6 +1042,27 @@
         if (!this.$refs.search.value.length && this.mutableValue && this.clearable) {
           this.mutableValue = this.multiple ? this.mutableValue.slice(0, -1) : null
         }
+      },
+
+      /**
+       * Determine if an option exists
+       * within this.mutableOptions array.
+       *
+       * @param  {Object || String} option
+       * @return {boolean}
+       */
+      optionExists(option) {
+        let exists = false
+
+        this.mutableOptions.forEach(opt => {
+          if (typeof opt === 'object' && opt[this.label] === option) {
+            exists = true
+          } else if (opt === option) {
+            exists = true
+          }
+        })
+
+        return exists
       },
 
       /**
@@ -1160,7 +1163,7 @@
           return this.mutableOptions.slice()
         }
         let options = this.search.length ? this.filter(this.mutableOptions, this.search, this) : this.mutableOptions;
-        if (this.taggable && this.search.length && !this.optionExists(this.search)) {
+        if (this.taggable && this.search.length && (this.allowDuplicateTags || !this.optionExists(this.search))) {
           options.unshift(this.search)
         }
         return options
