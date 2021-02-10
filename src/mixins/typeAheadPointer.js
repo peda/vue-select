@@ -47,7 +47,7 @@ module.exports = {
      */
     typeAheadSelect() {
       if( this.filteredOptions[ this.typeAheadPointer ] ) {
-        if (!this.isOptionSelected(option)) {
+        if (!this.isOptionSelected(this.filteredOptions[ this.typeAheadPointer ])) {
           this.select( this.filteredOptions[ this.typeAheadPointer ] );
         } else {
           this.deselect( this.filteredOptions[ this.typeAheadPointer ] );
