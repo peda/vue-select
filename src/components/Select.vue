@@ -1170,7 +1170,10 @@
         }
         let options = this.search.length ? this.filter(this.mutableOptions, this.search, this) : this.mutableOptions;
         if (this.taggable && this.search.length && (this.allowDuplicateTags || !this.optionExists(this.search))) {
-          options.push(this.search)
+          if (this.allowDuplicateTags)
+            options.push(this.search)
+          else
+            options.slice(this.search);
         }
         return options
       },
