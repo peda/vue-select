@@ -934,6 +934,8 @@
        * @return {Boolean}        True when selected | False otherwise
        */
       isOptionSelected(option) {
+        if (this.taggable && this.allowDuplicateTags && typeof option === 'string' && this.mutableOptions.map(opt => typeof opt).includes("object")) return false;
+
         return this.valueAsArray.some(value => {
           if (typeof value === 'object') {
             return this.optionObjectComparator(value, option)
@@ -1054,7 +1056,7 @@
       optionExists(option) {
         let exists = false
 
-        if (this.taggable && typeof option === 'string' && this.mutableOptions.map(opt => typeof opt).includes("object")) return false;
+        if (this.taggable && this.allowDuplicateTags && typeof option === 'string' && this.mutableOptions.map(opt => typeof opt).includes("object")) return false;
 
         this.mutableOptions.forEach(opt => {
           if (typeof opt === 'object' && opt[this.label] === option) {
@@ -1166,7 +1168,7 @@
         }
         let options = this.search.length ? this.filter(this.mutableOptions, this.search, this) : this.mutableOptions;
         if (this.taggable && this.search.length && (this.allowDuplicateTags || !this.optionExists(this.search))) {
-          options.unshift(this.search)
+          options.push(this.search)
         }
         return options
       },
