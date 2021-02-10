@@ -954,8 +954,8 @@
       optionObjectComparator(value, option) {
         if (this.index && value === option[this.index]) {
           return true
-        } else if (value === option.id) {
-          return true
+        } else if (typeof value === 'object' && typeof option === 'object' && typeof value.id !== 'undefined' && value.id != null && typeof option.id !== 'undefined' && option.id != null) {
+          return value.id === option.id;
         } else if ((value[this.label] === option[this.label]) || (value[this.label] === option)) {
           return true
         } else if (this.index && value[this.index] === option[this.index]) {
