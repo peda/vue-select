@@ -701,6 +701,30 @@
       },
 
       /**
+       * Determine if an option exists
+       * within this.mutableOptions array.
+       *
+       * @param  {Object || String} option
+       * @return {boolean}
+       */
+      optionExists: {
+        type: Function,
+        default(option) {
+          let exists = false
+
+          this.mutableOptions.forEach(opt => {
+            if (typeof opt === 'object' && opt[this.label] === option) {
+              exists = true
+            } else if (opt === option) {
+              exists = true
+            }
+          })
+
+          return exists
+        }
+      },
+
+      /**
        * When false, updating the options will not reset the select value
        * @type {Boolean}
        */
@@ -1036,27 +1060,6 @@
         if (!this.$refs.search.value.length && this.mutableValue && this.clearable) {
           this.mutableValue = this.multiple ? this.mutableValue.slice(0, -1) : null
         }
-      },
-
-      /**
-       * Determine if an option exists
-       * within this.mutableOptions array.
-       *
-       * @param  {Object || String} option
-       * @return {boolean}
-       */
-      optionExists(option) {
-        let exists = false
-
-        this.mutableOptions.forEach(opt => {
-          if (typeof opt === 'object' && opt[this.label] === option) {
-            exists = true
-          } else if (opt === option) {
-            exists = true
-          }
-        })
-
-        return exists
       },
 
       /**
