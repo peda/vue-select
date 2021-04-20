@@ -49,7 +49,7 @@ module.exports = {
       if( this.filteredOptions[ this.typeAheadPointer ] ) {
         if (!this.isOptionSelected(this.filteredOptions[ this.typeAheadPointer ])) {
           this.select( this.filteredOptions[ this.typeAheadPointer ] );
-        } else {
+        } else if (this.clearable || this.multiple) {
           this.deselect( this.filteredOptions[ this.typeAheadPointer ] );
         }
       } else if (this.taggable && this.search.length){
