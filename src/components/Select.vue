@@ -1033,7 +1033,7 @@
        */
       onSearchFocus() {
         this.open = true
-        this.typeAheadPointer = 0;
+        this.typeAheadPointer = -1;
         this.$emit('search:focus')
       },
 
