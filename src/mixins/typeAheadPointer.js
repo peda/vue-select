@@ -45,11 +45,11 @@ module.exports = {
      * Optionally clear the search input on selection.
      * @return {void}
      */
-    typeAheadSelect() {
+    typeAheadSelect(deselect = false) {
       if( this.filteredOptions[ this.typeAheadPointer ] ) {
         if (!this.isOptionSelected(this.filteredOptions[ this.typeAheadPointer ])) {
-          this.select( this.filteredOptions[ this.typeAheadPointer ] );
-        } else if (this.clearable || this.multiple) {
+          this.select(this.filteredOptions[this.typeAheadPointer]);
+        } else if (deselect && (this.clearable || this.multiple)) {
           this.deselect( this.filteredOptions[ this.typeAheadPointer ] );
         }
       } else if (this.taggable && this.search.length){

@@ -334,7 +334,7 @@
                 @keyup.esc="onEscape"
                 @keydown.up.prevent="typeAheadUp"
                 @keydown.down.prevent="typeAheadDown"
-                @keydown.enter.prevent="typeAheadSelect"
+                @keydown.enter.prevent="typeAheadSelect(true)"
                 @keydown.tab="onTab"
                 @blur="onSearchBlur"
                 @focus="onSearchFocus"
